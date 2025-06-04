@@ -4,5 +4,5 @@ namespace Application.StateManagement.Generic;
 
 public class AppStateRequest: SynchronizedRequest
 {
-    public IAppState InternalLatestState { get; set; }
+    internal IAppState InternalLatestState { get; set; }
 }
