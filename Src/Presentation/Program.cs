@@ -1,6 +1,7 @@
 using System.Reflection;
 using Application.Common.Composers;
 using Application.Feature1;
+using Domain.Common.Composers;
 using Domain.Extensions;
 using ErrorOr;
 using FluentValidation;
@@ -12,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.RegisterDomain();
 builder.Services.RegisterApplication();
 builder.Services.RegisterInfrastructure();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetAssembly(typeof(Feature1RequestHandler))));
