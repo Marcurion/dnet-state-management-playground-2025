@@ -8,7 +8,7 @@ public class AppStateComponentBase : ComponentBase, IDisposable
     [Inject]
     protected IComponentRenderingService RenderingService { get; set; } = default!;
     
-    [Parameter]
+    [Inject]
     public IAppState AppState { get; set; } = default!;
     
     protected string ListAnimationClass = "";
@@ -16,9 +16,10 @@ public class AppStateComponentBase : ComponentBase, IDisposable
     
     protected override bool ShouldRender() => true;
     
+    
     public void ManualRender(IAppState newState)
     {
-        Console.WriteLine("MANUALRENDER TRIGGERED");
+        Console.WriteLine("MANUAL RENDER TRIGGERED");
         AppState = newState ?? throw new ArgumentNullException(nameof(newState));
         
         // Reset animation classes to retrigger animations
@@ -39,8 +40,9 @@ public class AppStateComponentBase : ComponentBase, IDisposable
     
     protected override void OnInitialized()
     {
+        AppState.AppStateChanged += ManualRender;
         base.OnInitialized();
-        RenderingService.RegisterComponent(this);
+        //RenderingService.RegisterComponent(this);
     }
     
     protected override void OnAfterRender(bool firstRender)
@@ -51,6 +53,6 @@ public class AppStateComponentBase : ComponentBase, IDisposable
     
     public virtual void Dispose()
     {
-        RenderingService.UnregisterComponent(this);
+        //RenderingService.UnregisterComponent(this);
     }
 }

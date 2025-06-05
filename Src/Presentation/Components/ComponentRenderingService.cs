@@ -40,7 +40,7 @@ public class ComponentRenderingService : IComponentRenderingService
         {
             try
             {
-                component.ManualRender(newState);
+               // component.ManualRender(newState);
             }
             catch (Exception ex)
             {

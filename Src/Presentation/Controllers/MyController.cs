@@ -85,7 +85,7 @@ namespace Presentation.Controllers
                 // Manual render of components with updated state
                 await _renderingService.RenderAppStateComponentAsync(result.Value);
                 
-                return Ok(new { success = true, newState = result.Value });
+                return Ok(new { success = true  });
             }
             catch (Exception ex)
             {
