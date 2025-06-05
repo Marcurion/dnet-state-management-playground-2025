@@ -1,13 +1,13 @@
 @using Domain.States
 @inherits AppStateComponentBase
 
-<div class="app-state-component">
+<div class="app-state-component @ComponentAnimationClass">
     <h3>App State</h3>
     
     <ul class="number-list">
         @foreach (var number in AppState.Numbers)
         {
-            <li>@number</li>
+            <li class="@ListAnimationClass">@number</li>
         }
     </ul>
     
@@ -20,5 +20,6 @@
         // Handle button click action here
         // This is a placeholder for your button action
         Console.WriteLine("Button clicked in AppStateComponent");
+        throw new Exception("test");
     }
 }
