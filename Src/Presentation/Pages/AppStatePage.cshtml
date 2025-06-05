@@ -1,0 +1,30 @@
+@page
+@model Presentation.Pages.AppStatePageModel
+@{
+    ViewData["Title"] = "App State Page";
+}
+
+<h1>App State Management Demo</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <component type="typeof(AppStateComponent)" render-mode="ServerPrerendered" param-AppState="Model.CurrentState" />
+    </div>
+
+    <div class="col-md-6 update-section">
+        <h3>Update State</h3>
+        <form method="post">
+            <div class="form-group">
+                <label for="newNumber">Add Number:</label>
+                <input type="number" id="newNumber" name="newNumber" class="form-control" required />
+            </div>
+            <button type="submit" class="action-button mt-3">Add to State</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Client-side JavaScript if needed
+    </script>
+}

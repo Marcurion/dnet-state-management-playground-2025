@@ -1,0 +1,24 @@
+@using Domain.States
+@inherits AppStateComponentBase
+
+<div class="app-state-component">
+    <h3>App State</h3>
+    
+    <ul class="number-list">
+        @foreach (var number in AppState.Numbers)
+        {
+            <li>@number</li>
+        }
+    </ul>
+    
+    <button @onclick="OnButtonClick" class="action-button">Perform Action</button>
+</div>
+
+@code {
+    private void OnButtonClick()
+    {
+        // Handle button click action here
+        // This is a placeholder for your button action
+        Console.WriteLine("Button clicked in AppStateComponent");
+    }
+}
