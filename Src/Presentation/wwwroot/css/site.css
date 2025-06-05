@@ -98,6 +98,14 @@ a, .btn-link {
     background-color: #0056b3;
 }
 
+.add-number-section {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid #dee2e6;
+}
+
 .update-section {
     margin-top: 20px;
     padding: 20px;

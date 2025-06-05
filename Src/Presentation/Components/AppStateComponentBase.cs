@@ -11,11 +11,10 @@ public class AppStateComponentBase : ComponentBase, IDisposable
     [Parameter]
     public IAppState AppState { get; set; } = default!;
     
-    private bool _shouldRender = true;
     protected string ListAnimationClass = "";
     protected string ComponentAnimationClass = "";
     
-    protected override bool ShouldRender() => _shouldRender;
+    protected override bool ShouldRender() => true;
     
     public void ManualRender(IAppState newState)
     {
@@ -26,9 +25,7 @@ public class AppStateComponentBase : ComponentBase, IDisposable
         ListAnimationClass = "";
         ComponentAnimationClass = "";
         
-        _shouldRender = true;
-        StateHasChanged();
-        _shouldRender = false;
+        InvokeAsync(StateHasChanged);
         
         // Apply animation classes after render with small delay
         _ = Task.Run(async () =>
@@ -43,7 +40,6 @@ public class AppStateComponentBase : ComponentBase, IDisposable
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        _shouldRender = true;
         RenderingService.RegisterComponent(this);
     }
     
@@ -51,7 +47,6 @@ public class AppStateComponentBase : ComponentBase, IDisposable
     {
         Console.WriteLine("AFTER RENDER");
         base.OnAfterRender(firstRender);
-        _shouldRender = false;
     }
     
     public virtual void Dispose()
