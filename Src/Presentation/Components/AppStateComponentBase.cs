@@ -14,7 +14,9 @@ public class AppStateComponentBase : ComponentBase, IDisposable
     protected string ListAnimationClass = "";
     protected string ComponentAnimationClass = "";
     
-    protected override bool ShouldRender() => true;
+    protected override bool ShouldRender() => _shouldRender;
+
+    private bool _shouldRender = true;
     
     
     public void ManualRender(IAppState newState)
@@ -25,8 +27,10 @@ public class AppStateComponentBase : ComponentBase, IDisposable
         // Reset animation classes to retrigger animations
         ListAnimationClass = "";
         ComponentAnimationClass = "";
-        
+
+        _shouldRender = true;
         InvokeAsync(StateHasChanged);
+        _shouldRender = false;
         
         // Apply animation classes after render with small delay
         _ = Task.Run(async () =>
@@ -34,13 +38,16 @@ public class AppStateComponentBase : ComponentBase, IDisposable
             await Task.Delay(10); // Small delay ensures DOM reflow
             ListAnimationClass = "list-update-animation";
             ComponentAnimationClass = "component-refresh-animation";
+            _shouldRender = true;
             await InvokeAsync(StateHasChanged);
+            _shouldRender = false;
         });
     }
     
     protected override void OnInitialized()
     {
         AppState.AppStateChanged += ManualRender;
+        _shouldRender = false;
         base.OnInitialized();
         //RenderingService.RegisterComponent(this);
     }
