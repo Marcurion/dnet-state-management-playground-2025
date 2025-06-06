@@ -1,10 +1,11 @@
+using Application.StateManagement.Specific;
 using Domain.States;
 using ErrorOr;
 using MediatR;
 
-namespace Application.StateManagement.Specific;
+namespace Application.StateManagement.AppState1.Specific;
 
-public class SetAppStateRequestHandler : IRequestHandler<SetAppStateRequest, ErrorOr<IAppState>>
+public class SetAppState1RequestHandler : IRequestHandler<SetAppStateRequest, ErrorOr<IAppState>>
 {
     public async Task<ErrorOr<IAppState>> Handle(SetAppStateRequest request, CancellationToken cancellationToken)
     {

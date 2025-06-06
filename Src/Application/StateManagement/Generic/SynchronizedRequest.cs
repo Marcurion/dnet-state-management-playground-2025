@@ -1,10 +1,9 @@
 using Domain.States;
-using MediatR;
 using ErrorOr;
+using MediatR;
 
 namespace Application.StateManagement.Generic;
 
 public class SynchronizedRequest : IRequest<ErrorOr<IAppState>>
 {
-    
 }

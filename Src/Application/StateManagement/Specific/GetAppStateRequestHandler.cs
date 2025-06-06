@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.StateManagement.Specific;
 
-public class GetAppStateRequestHandler: IRequestHandler<GetAppStateRequest, ErrorOr<IAppState>>
+public class GetAppStateRequestHandler : IRequestHandler<GetAppStateRequest, ErrorOr<IAppState>>
 {
     public async Task<ErrorOr<IAppState>> Handle(GetAppStateRequest request, CancellationToken cancellationToken)
     {

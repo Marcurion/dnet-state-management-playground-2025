@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Application.StateManagement.Generic;
 using Domain.States;
 using ErrorOr;
@@ -6,13 +5,12 @@ using MediatR;
 
 namespace Application.StateManagement.Pipeline;
 
-  
-    
-    // public class AppStatePipelineBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    public class AppStatePipelineBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, ErrorOr<IAppState>>
+// public class AppStatePipelineBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public class AppStatePipelineBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, ErrorOr<IAppState>>
     where TRequest : AppStateRequest
-    {
-        private  IAppStateWrapper _wrapperSingleton;
+{
+    private readonly IAppStateWrapper _wrapperSingleton;
+
     public AppStatePipelineBehaviour(IAppStateWrapper wrapperSingleton)
     {
         _wrapperSingleton = wrapperSingleton;
@@ -56,18 +54,18 @@ namespace Application.StateManagement.Pipeline;
     //     return await next();
     //
     // }
-    public async Task<ErrorOr<IAppState>> Handle(TRequest request, RequestHandlerDelegate<ErrorOr<IAppState>> next, CancellationToken cancellationToken)
+    public async Task<ErrorOr<IAppState>> Handle(TRequest request, RequestHandlerDelegate<ErrorOr<IAppState>> next,
+        CancellationToken cancellationToken)
     {
-        
         if (request == null)
             throw new ArgumentException("Request must not be null");
-        
+
         if (request.InternalLatestState != null)
             throw new ArgumentException("Internal state should not be populated by the user");
-    
+
         request.InternalLatestState = _wrapperSingleton.CurrentState;
         // return await next();
-        var operationResult =  await next();
+        var operationResult = await next();
 
         // if (operationResult.Value.GetHashCode() != _wrapperSingleton.CurrentState.GetHashCode())
         // {
@@ -75,8 +73,7 @@ namespace Application.StateManagement.Pipeline;
         //       _wrapperSingleton.CurrentState = operationResult.Value;
         // }
 
-        
-        return operationResult;
 
+        return operationResult;
     }
-    }
+}
