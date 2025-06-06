@@ -20,20 +20,22 @@ public class AppState1PipelineBehaviour<TRequest, TResponse> : IPipelineBehavior
     public async Task<IAppState1> Handle(TRequest request, RequestHandlerDelegate<IAppState1> next,
         CancellationToken cancellationToken)
     {
-        if (request == null)
-            throw new ArgumentException("Request must not be null");
-
-        if (request.InternalLatestState != null)
-            throw new InternalStatePrepopulatedException();
-
-        request.InternalLatestState = _wrapperSingleton.CurrentState;
-
         // if (_mutex.CurrentCount == 0) // not thread-safe, for debugging only
         //     throw new MutexBusyException(); 
 
         await _mutex.WaitAsync(cancellationToken);
         try
         {
+            
+            if (request == null)
+                throw new ArgumentException("Request must not be null");
+
+            if (request.InternalLatestState != null)
+                throw new InternalStatePrepopulatedException();
+
+            request.InternalLatestState = _wrapperSingleton.CurrentState;
+
+
             return await next();
         }
         finally
