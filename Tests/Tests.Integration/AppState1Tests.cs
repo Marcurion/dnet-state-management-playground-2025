@@ -1,7 +1,6 @@
 using System.Reflection;
 using Application.StateManagement.AppState1.Specific;
 using Application.StateManagement.Common;
-using Application.StateManagement.Specific;
 using Domain.States;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -171,4 +170,31 @@ public class AppState1Tests : IClassFixture<MyCustomWebFactory>
         
         Assert.Empty(exceptions);
     }
+}
+
+
+public class RepeatAttribute : DataAttribute
+{
+    private readonly int _count;
+
+    public RepeatAttribute(int count)
+    {
+        if (count < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count),
+                "Repeat count must be greater than 0.");
+        }
+
+        _count = count;
+    }
+
+    public override IEnumerable<object[]> GetData(MethodInfo testMethod)
+    {
+        return Enumerable.Repeat(new object[0], _count);
+    }
+}
+
+[CollectionDefinition("NonParallel Tests", DisableParallelization = true)]
+public class NonParallelCollectionDefinition
+{
 }

@@ -1,8 +1,6 @@
 using Application.Common.PipelineBehaviors;
 using Application.StateManagement.AppState1.Pipeline;
 using Application.StateManagement.AppState2.Pipeline;
-using Application.StateManagement.Common;
-using Application.StateManagement.Pipeline;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,9 +14,6 @@ public static class RegisterDependencies
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceMonitoringBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(SynchronizedPipelineRequest<,>));
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AppStatePipelineBehaviour<,>));
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AppStateModificationPipelineBehaviour<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AppState1PipelineBehaviour<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AppState1ModificationPipelineBehaviour<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AppState2PipelineBehaviour<,>));

@@ -10,7 +10,6 @@
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Common\Options\" />
-        <Folder Include="Persistence\" />
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="Riok.Mapperly" />

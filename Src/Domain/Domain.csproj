@@ -6,12 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Entities\" />
-        <Folder Include="Exceptions\" />
-        <Folder Include="ValueObjects\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="ErrorOr" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     </ItemGroup>
