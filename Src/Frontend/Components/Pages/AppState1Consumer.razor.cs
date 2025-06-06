@@ -1,15 +1,13 @@
 using Domain.States;
 using Microsoft.AspNetCore.Components;
 
-namespace Presentation.Components;
+namespace BlazorApp1.Components.Pages;
 
-public class AppStateComponentBase : ComponentBase, IDisposable
+public partial class AppState1Consumer : ComponentBase, IDisposable
 {
-    [Inject]
-    protected IComponentRenderingService RenderingService { get; set; } = default!;
     
     [Inject]
-    public IAppState AppState { get; set; } = default!;
+    public IAppState _appState { get; set; } = default!;
     
     protected string ListAnimationClass = "";
     protected string ComponentAnimationClass = "";
@@ -21,8 +19,8 @@ public class AppStateComponentBase : ComponentBase, IDisposable
     
     public void ManualRender(IAppState newState)
     {
-        Console.WriteLine("MANUAL RENDER TRIGGERED");
-        AppState = newState ?? throw new ArgumentNullException(nameof(newState));
+        Console.WriteLine("MANUAL RENDER TRIGGERED (APPSTATE1CONSUMER)");
+        _appState = newState ?? throw new ArgumentNullException(nameof(newState));
         
         // Reset animation classes to retrigger animations
         ListAnimationClass = "";
@@ -46,21 +44,20 @@ public class AppStateComponentBase : ComponentBase, IDisposable
     
     protected override void OnInitialized()
     {
-        AppState.AppStateChanged += ManualRender;
+        _appState.AppStateChanged += ManualRender;
         _shouldRender = false;
         base.OnInitialized();
-        //RenderingService.RegisterComponent(this);
     }
     
     protected override void OnAfterRender(bool firstRender)
     {
-        Console.WriteLine("AFTER RENDER");
+        // NOTABLE: This renders twice to unset and then set the CSS styles and re-trigger the animation
+        Console.WriteLine("AFTER RENDER (APPSTATE1CONSUMER)");
         base.OnAfterRender(firstRender);
     }
     
     public virtual void Dispose()
     {
-        AppState.AppStateChanged -= ManualRender;
-        //RenderingService.UnregisterComponent(this);
+        _appState.AppStateChanged -= ManualRender;
     }
 }

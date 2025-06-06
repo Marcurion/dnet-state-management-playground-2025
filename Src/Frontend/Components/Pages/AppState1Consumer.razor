@@ -1,0 +1,22 @@
+@rendermode InteractiveServer
+
+<div class="app-state-component @ComponentAnimationClass">
+    <h3>App State1</h3>
+    
+    <ul class="number-list">
+        @foreach (var number in _appState.Numbers)
+        {
+            <li class="@ListAnimationClass">@number</li>
+        }
+    </ul>
+    <button @onclick="ButtonTest" class="action-button" >Simulate Dirty State</button>
+</div>
+
+@code
+{
+
+    public void ButtonTest()
+    {
+        Console.WriteLine("Ran logic but does not trigger re-draw");
+    }
+}

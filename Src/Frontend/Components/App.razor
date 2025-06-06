@@ -1,6 +1,4 @@
-@using Presentation.Shared
-@using Microsoft.AspNetCore.Components.Routing;
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,19 +7,13 @@
     <base href="/"/>
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="app.css"/>
-    <link rel="stylesheet" href="BlazorApp1.styles.css"/>
+    <link rel="stylesheet" href="Frontend.styles.css"/>
     <link rel="icon" type="image/png" href="favicon.png"/>
     <HeadOutlet/>
 </head>
 
 <body>
-<Router AppAssembly="typeof(Program).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)"/>
-        <FocusOnNavigate RouteData="routeData" Selector="h1"/>
-    </Found>
-</Router>
-
+<Routes/>
 <script src="_framework/blazor.web.js"></script>
 </body>
 

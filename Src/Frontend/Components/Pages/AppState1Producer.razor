@@ -1,0 +1,38 @@
+@using Application.StateManagement.Specific
+@using Domain.States
+@using MediatR
+@rendermode InteractiveServer
+
+<h3>Update State1</h3>
+<div class="add-number-section">
+    <div class="form-group">
+        <label for="newNumber">Add Number:</label>
+        <input type="number" @bind="input" id="newNumber" class="form-control" placeholder="Enter a number"/>
+    </div>
+    <button @onclick="AddNumber" class="action-button mt-2">Add to State</button>
+</div>
+
+
+@code {
+protected override bool ShouldRender() => _shouldRender;
+private bool _shouldRender = true;
+    [Inject] private IMediator _mediator { get; init; }
+
+    private string input = "42";
+
+    public async Task AddNumber()
+    {
+        var previousState1 = await _mediator.Send(new GetAppStateRequest());
+        var newState1 = new AppState() { AppStateChanged = previousState1.Value.AppStateChanged, Numbers = previousState1.Value.Numbers.Concat([int.Parse(input)]).ToList() };
+        await _mediator.Send(new SetAppStateRequest() { NewState = newState1, LastStateHash = previousState1.Value.GetHashCode() });
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Console.WriteLine("AFTER RENDER (APPSTATE1PRODUCER)");
+        base.OnAfterRender(firstRender);
+        _shouldRender = false;
+    }
+
+
+}

@@ -8,6 +8,7 @@ using FluentValidation;
 using Infrastructure.Common.Composer;
 using MediatR;
 using Microsoft.AspNetCore.Components.Server.Circuits;
+using Presentation;
 using Presentation.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddControllers();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 // Register component services
 builder.Services.AddScoped<AppStateComponent>();
@@ -48,9 +50,11 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 app.MapBlazorHub();
 app.MapControllers();
 app.MapFallbackToPage("/_Host");
+app.UseAntiforgery();
 
 Task.Run(async () =>
 {
