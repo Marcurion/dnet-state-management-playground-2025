@@ -1,0 +1,53 @@
+@using Application.StateManagement.AppState1.Specific
+@using Application.StateManagement.AppState2.Specific
+@using Application.StateManagement.Common
+@using Application.StateManagement.Specific
+@using Domain.States
+@using MediatR
+@rendermode InteractiveServer
+
+<h3>Update State2</h3>
+<div class="add-number-section">
+    <div class="form-group">
+        <label for="newNumber">Add Color:</label>
+        <input @bind="input" id="newItem" class="form-control" placeholder="Enter text"/>
+    </div>
+    <button @onclick="AddNumber" class="action-button mt-2">Add to State</button>
+</div>
+
+
+@code {
+protected override bool ShouldRender() => _shouldRender;
+private bool _shouldRender = true;
+    [Inject] private IMediator _mediator { get; init; }
+
+    private string input = "Yellow";
+
+    public async Task AddNumber() => AddNumber(0);
+
+    public async Task AddNumber(uint attempts)
+    {
+        if (attempts > 100)
+            throw new TooManyReattemptsException();
+        
+        var previousState2 = await _mediator.Send(new GetAppState2Request());
+        var newState2 = new AppState2() {  Items = previousState2.Items.Concat([input]).ToList() };
+        try
+        {
+            await _mediator.Send(new SetAppState2Request() { NewState = newState2, LastStateHash = previousState2.GetHashCode() });
+        }
+        catch (HashOutdatedException)
+        {
+            AddNumber(++attempts);
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Console.WriteLine("AFTER RENDER (APPSTATE2PRODUCER)");
+        base.OnAfterRender(firstRender);
+        _shouldRender = false;
+    }
+
+
+}
