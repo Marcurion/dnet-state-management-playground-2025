@@ -22,7 +22,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Src\Presentation\Presentation.csproj" />
+      <ProjectReference Include="..\..\Src\Application\Application.csproj" />
+      <ProjectReference Include="..\..\Src\Domain\Domain.csproj" />
+      <ProjectReference Include="..\..\Src\Frontend\Frontend.csproj" />
     </ItemGroup>
 
 </Project>
