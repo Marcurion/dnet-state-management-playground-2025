@@ -1,3 +1,5 @@
+@using Application.StateManagement.AppState1.Specific
+@using Application.StateManagement.Common
 @using Application.StateManagement.Specific
 @using Domain.States
 @using MediatR
@@ -7,7 +9,7 @@
 <div class="add-number-section">
     <div class="form-group">
         <label for="newNumber">Add Number:</label>
-        <input type="number" @bind="input" id="newNumber" class="form-control" placeholder="Enter a number"/>
+        <input @bind="input" id="newItem" class="form-control" placeholder="Enter text"/>
     </div>
     <button @onclick="AddNumber" class="action-button mt-2">Add to State</button>
 </div>
@@ -20,11 +22,23 @@ private bool _shouldRender = true;
 
     private string input = "42";
 
-    public async Task AddNumber()
+    public async Task AddNumber() => AddNumber(0);
+
+    public async Task AddNumber(uint attempts)
     {
-        var previousState1 = await _mediator.Send(new GetAppStateRequest());
-        var newState1 = new AppState() { AppStateChanged = previousState1.Value.AppStateChanged, Numbers = previousState1.Value.Numbers.Concat([int.Parse(input)]).ToList() };
-        await _mediator.Send(new SetAppStateRequest() { NewState = newState1, LastStateHash = previousState1.Value.GetHashCode() });
+        if (attempts > 100)
+            throw new TooManyReattemptsException();
+        
+        var previousState1 = await _mediator.Send(new GetAppState1Request());
+        var newState1 = new AppState1() {  Items = previousState1.Items.Concat([input]).ToList() };
+        try
+        {
+            await _mediator.Send(new SetAppState1Request() { NewState = newState1, LastStateHash = previousState1.GetHashCode() });
+        }
+        catch (HashOutdatedException)
+        {
+            AddNumber(++attempts);
+        }
     }
 
     protected override void OnAfterRender(bool firstRender)

@@ -11,3 +11,5 @@ public class InternalStatePrepopulatedException : Exception;
 public class InternalStateNullException : Exception;
 
 public class HashNotProvidedException : Exception;
+
+public class TooManyReattemptsException : Exception;

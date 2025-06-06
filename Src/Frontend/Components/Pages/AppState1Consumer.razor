@@ -4,9 +4,9 @@
     <h3>App State1</h3>
     
     <ul class="number-list">
-        @foreach (var number in _appState.Numbers)
+        @foreach (var item in _appState1Wrapper.CurrentState.Items)
         {
-            <li class="@ListAnimationClass">@number</li>
+            <li class="@ListAnimationClass">@item</li>
         }
     </ul>
     <button @onclick="ButtonTest" class="action-button" >Simulate Dirty State</button>

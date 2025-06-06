@@ -7,7 +7,7 @@ public partial class AppState1Consumer : ComponentBase, IDisposable
 {
     
     [Inject]
-    public IAppState _appState { get; set; } = default!;
+    public IAppState1Wrapper _appState1Wrapper { get; set; } = default!;
     
     protected string ListAnimationClass = "";
     protected string ComponentAnimationClass = "";
@@ -17,10 +17,9 @@ public partial class AppState1Consumer : ComponentBase, IDisposable
     private bool _shouldRender = true;
     
     
-    public void ManualRender(IAppState newState)
+    public void ManualRender(IAppState1 newState)
     {
         Console.WriteLine("MANUAL RENDER TRIGGERED (APPSTATE1CONSUMER)");
-        _appState = newState ?? throw new ArgumentNullException(nameof(newState));
         
         // Reset animation classes to retrigger animations
         ListAnimationClass = "";
@@ -44,7 +43,7 @@ public partial class AppState1Consumer : ComponentBase, IDisposable
     
     protected override void OnInitialized()
     {
-        _appState.AppStateChanged += ManualRender;
+        _appState1Wrapper.StateChanged += ManualRender;
         _shouldRender = false;
         base.OnInitialized();
     }
@@ -58,6 +57,6 @@ public partial class AppState1Consumer : ComponentBase, IDisposable
     
     public virtual void Dispose()
     {
-        _appState.AppStateChanged -= ManualRender;
+        _appState1Wrapper.StateChanged -= ManualRender;
     }
 }
