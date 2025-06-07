@@ -19,7 +19,7 @@ public class AppState1PipelineBehaviour<TRequest, T> : IPipelineBehavior<TReques
 
     public async Task<IAppState1<T>> Handle(TRequest request, RequestHandlerDelegate<IAppState1<T>> next, CancellationToken cancellationToken)
     {
-        
+        Console.WriteLine("Works");
         // if (_mutex.CurrentCount == 0) // not thread-safe, for debugging only
         //     throw new MutexBusyException(); 
 
