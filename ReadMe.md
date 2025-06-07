@@ -13,7 +13,7 @@ The following issues were attempted to be addressed by this:
 
 
 # Why MediatR?
-MediatR was chosen since it's PipelineBehaviours could be leveraged for several useful feats like validation, change detection, thread-synchronization, request modification and state injection. The concept of request polymorphism also seemed to align well initially with my intention to re-use pipelines and generalize functionality even though more could have been done in that regard in this demo.
+MediatR was chosen since it's PipelineBehaviours could be leveraged for several useful feats like validation, change detection, thread-synchronization, request modification and state injection. The concept of request polymorphism also seemed to align well initially with my intention to re-use pipelines and generalize functionality even though when Generics come into play this will scale not ideally.
 I am aware of the immanent license changes for this package but confident similar results can be achieved with the many available alternatives, like:
 https://github.com/martinothamar/Mediator
 
@@ -25,8 +25,9 @@ There are three XUnit test projects that should run green.
 Also, you can run the Blazor Webapp "Frontend". A browser window should open (or you navigate to http://localhost:5197/)  where you are greeted by 4 widgets in the "Home" tab and a headline "App State Management Demo". The 4 widgets are 2 state producers and 2 state consumers. You can add any text via the text input of a producer, and it will be reflected in the list view of the consumer. When adding a new item to the list there should be a simple animation on all the list items. Also note that the state is persisted when changing the tab to "Counter" and back to "Home" again, as long as the app is running. Observe the output of the .net console (not browser console) where it is logged when a widget is redrawn, which in the case of list updates happens twice in a row to correctly trigger CSS animations.
 
 # Most Relevant files
- To jump right into the matter you can have a look at:
- - **Src/Application/StateManagement/AppState1/Pipeline** where the magic happens
+Search for the // Notable: comments.
+ And to jump right into the matter you can have a look at:
+ - **Src/Application/StateManagement/Pipeline** where the magic happens
  - **Src/Frontend/Components/Pages** for seeing how the state is updated and consumed:
    - **AppState1Producer.razor**
    - **AppState1Consumer.razor**

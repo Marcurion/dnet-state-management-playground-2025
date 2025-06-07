@@ -16,6 +16,8 @@ public static class RegisterDependencies
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceMonitoringBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+        // Notable: the amount of registered Transients could be reduced down to 2 per distinct state,
+        // if we would unify the getter and setter pairs for pipelines, requests and handlers and use one pipeline step for states 
         services
             .AddTransient<IRequestHandler<GetAppStateRequest<List<string>>, IAppState<List<string>>>,
                 GetAppStateRequestHandler<List<string>>>();
