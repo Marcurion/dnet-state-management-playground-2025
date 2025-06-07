@@ -1,6 +1,9 @@
 using Application.Common.PipelineBehaviors;
+using Application.StateManagement.AppState1.Generic;
 using Application.StateManagement.AppState1.Pipeline;
+using Application.StateManagement.AppState1.Specific;
 using Application.StateManagement.AppState2.Pipeline;
+using Domain.States;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +21,10 @@ public static class RegisterDependencies
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AppState1ModificationPipelineBehaviour<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AppState2PipelineBehaviour<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AppState2ModificationPipelineBehaviour<,>));
+
+        // Register concrete handlers for AppState1 with List<string>
+        services.AddTransient<IRequestHandler<GetAppState1Request<List<string>>, IAppState1<List<string>>>, GetAppState1RequestHandler<List<string>>>();
+        services.AddTransient<IRequestHandler<SetAppState1Request<List<string>>, IAppState1<List<string>>>, SetAppState1RequestHandler<List<string>>>();
 
         return services;
     }
