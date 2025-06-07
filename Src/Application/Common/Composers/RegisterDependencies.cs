@@ -1,8 +1,7 @@
 using Application.Common.PipelineBehaviors;
-using Application.StateManagement.AppState1.Generic;
-using Application.StateManagement.AppState1.Pipeline;
-using Application.StateManagement.AppState1.Specific;
-using Application.StateManagement.AppState2.Pipeline;
+using Application.StateManagement.Generic;
+using Application.StateManagement.Pipeline;
+using Application.StateManagement.Specific;
 using Domain.States;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,25 +17,23 @@ public static class RegisterDependencies
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services
-            .AddTransient<IRequestHandler<GetAppState1Request<List<string>>, IAppState1<List<string>>>,
-                GetAppState1RequestHandler<List<string>>>();
+            .AddTransient<IRequestHandler<GetAppStateRequest<List<string>>, IAppState<List<string>>>,
+                GetAppStateRequestHandler<List<string>>>();
         services
-            .AddTransient<IRequestHandler<SetAppState1Request<List<string>>, IAppState1<List<string>>>,
-                SetAppState1RequestHandler<List<string>>>();
+            .AddTransient<IRequestHandler<SetAppStateRequest<List<string>>, IAppState<List<string>>>,
+                SetAppStateRequestHandler<List<string>>>();
         services
-            .AddTransient<IRequestHandler<GetAppState1Request<List<int>>, IAppState1<List<int>>>,
-                GetAppState1RequestHandler<List<int>>>();
+            .AddTransient<IRequestHandler<GetAppStateRequest<List<int>>, IAppState<List<int>>>,
+                GetAppStateRequestHandler<List<int>>>();
         services
-            .AddTransient<IRequestHandler<SetAppState1Request<List<int>>, IAppState1<List<int>>>,
-                SetAppState1RequestHandler<List<int>>>();
-        services.AddTransient(typeof(IPipelineBehavior<GetAppState1Request<List<string>>, IAppState1<List<string>>>), typeof(AppState1PipelineBehaviour<AppState1Request<List<string>>, List<string>>));
-        services.AddTransient(typeof(IPipelineBehavior<SetAppState1Request<List<string>>, IAppState1<List<string>>>), typeof(AppState1PipelineBehaviour<AppState1ModificationRequest<List<string>>, List<string>>));
-        services.AddTransient(typeof(IPipelineBehavior<SetAppState1Request<List<string>>, IAppState1<List<string>>>), typeof(AppState1ModificationPipelineBehaviour<AppState1ModificationRequest<List<string>>, List<string>>));
-        services.AddTransient(typeof(IPipelineBehavior<GetAppState1Request<List<int>>, IAppState1<List<int>>>), typeof(AppState1PipelineBehaviour<AppState1Request<List<int>>, List<int>>));
-        services.AddTransient(typeof(IPipelineBehavior<SetAppState1Request<List<int>>, IAppState1<List<int>>>), typeof(AppState1PipelineBehaviour<AppState1ModificationRequest<List<int>>, List<int>>));
-        services.AddTransient(typeof(IPipelineBehavior<SetAppState1Request<List<int>>, IAppState1<List<int>>>), typeof(AppState1ModificationPipelineBehaviour<AppState1ModificationRequest<List<int>>, List<int>>));
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AppState2PipelineBehaviour<,>));
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AppState2ModificationPipelineBehaviour<,>));
+            .AddTransient<IRequestHandler<SetAppStateRequest<List<int>>, IAppState<List<int>>>,
+                SetAppStateRequestHandler<List<int>>>();
+        services.AddTransient(typeof(IPipelineBehavior<GetAppStateRequest<List<string>>, IAppState<List<string>>>), typeof(AppStatePipelineBehaviour<AppStateRequest<List<string>>, List<string>>));
+        services.AddTransient(typeof(IPipelineBehavior<SetAppStateRequest<List<string>>, IAppState<List<string>>>), typeof(AppStatePipelineBehaviour<AppStateModificationRequest<List<string>>, List<string>>));
+        services.AddTransient(typeof(IPipelineBehavior<SetAppStateRequest<List<string>>, IAppState<List<string>>>), typeof(AppStateModificationPipelineBehaviour<AppStateModificationRequest<List<string>>, List<string>>));
+        services.AddTransient(typeof(IPipelineBehavior<GetAppStateRequest<List<int>>, IAppState<List<int>>>), typeof(AppStatePipelineBehaviour<AppStateRequest<List<int>>, List<int>>));
+        services.AddTransient(typeof(IPipelineBehavior<SetAppStateRequest<List<int>>, IAppState<List<int>>>), typeof(AppStatePipelineBehaviour<AppStateModificationRequest<List<int>>, List<int>>));
+        services.AddTransient(typeof(IPipelineBehavior<SetAppStateRequest<List<int>>, IAppState<List<int>>>), typeof(AppStateModificationPipelineBehaviour<AppStateModificationRequest<List<int>>, List<int>>));
 
         return services;
     }

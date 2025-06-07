@@ -1,11 +1,11 @@
 namespace Domain.States;
 
-public class AppState2Wrapper : IAppState1Wrapper<List<int>>
+public class AppState2Wrapper : IAppStateWrapper<List<int>>
 {
-    public IAppState1<List<int>> CurrentState { get; set; }
-    public Action<IAppState1<List<int>>> StateChanged { get; set; }
+    public IAppState<List<int>> CurrentState { get; set; }
+    public Action<IAppState<List<int>>> StateChanged { get; set; }
 
-    public AppState2Wrapper(IAppState1<List<int>> initialState)
+    public AppState2Wrapper(IAppState<List<int>> initialState)
     {
         CurrentState = initialState;
     }

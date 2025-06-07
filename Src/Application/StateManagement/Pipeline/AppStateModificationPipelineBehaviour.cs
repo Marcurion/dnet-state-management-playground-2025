@@ -1,18 +1,18 @@
-using Application.StateManagement.AppState1.Generic;
 using Application.StateManagement.Common;
+using Application.StateManagement.Generic;
 using Domain.States;
 using MediatR;
 
-namespace Application.StateManagement.AppState1.Pipeline;
+namespace Application.StateManagement.Pipeline;
 
-public class AppState1ModificationPipelineBehaviour<TRequest, T>
-    : IPipelineBehavior<TRequest, IAppState1<T>>
-    where TRequest : AppState1ModificationRequest<T>
+public class AppStateModificationPipelineBehaviour<TRequest, T>
+    : IPipelineBehavior<TRequest, IAppState<T>>
+    where TRequest : AppStateModificationRequest<T>
 // where TInner : IAppState
 {
-    private readonly IAppState1Wrapper<T> _stateWrapper;
+    private readonly IAppStateWrapper<T> _stateWrapper;
 
-    public AppState1ModificationPipelineBehaviour(IAppState1Wrapper<T> stateWrapper)
+    public AppStateModificationPipelineBehaviour(IAppStateWrapper<T> stateWrapper)
     {
         _stateWrapper = stateWrapper;
     }
@@ -20,7 +20,7 @@ public class AppState1ModificationPipelineBehaviour<TRequest, T>
 
 
 
-    public async Task<IAppState1<T>> Handle(TRequest request, RequestHandlerDelegate<IAppState1<T>> next, CancellationToken cancellationToken)
+    public async Task<IAppState<T>> Handle(TRequest request, RequestHandlerDelegate<IAppState<T>> next, CancellationToken cancellationToken)
     {
         
         if (request == null)
