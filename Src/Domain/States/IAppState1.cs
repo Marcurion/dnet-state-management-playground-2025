@@ -1,6 +1,6 @@
 namespace Domain.States;
 
-public interface IAppState1
+public interface IAppState1<T>
 {
-    public List<string> Items { get; set; }
+    public T Items { get; set; }
 }

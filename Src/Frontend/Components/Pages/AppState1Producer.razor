@@ -25,14 +25,16 @@ private bool _shouldRender = true;
 
     public async Task AddNumber(uint attempts)
     {
+        Console.WriteLine("Trigger 1");
+        
         if (attempts > 100)
             throw new TooManyReattemptsException();
         
-        var previousState1 = await _mediator.Send(new GetAppState1Request());
+        var previousState1 = await _mediator.Send(new GetAppState1Request<List<string>>());
         var newState1 = new AppState1() {  Items = previousState1.Items.Concat([input]).ToList() };
         try
         {
-            await _mediator.Send(new SetAppState1Request() { NewState = newState1, LastStateHash = previousState1.GetHashCode() });
+            await _mediator.Send(new SetAppState1Request<List<string>>() { NewState = newState1, LastStateHash = previousState1.GetHashCode() });
         }
         catch (HashOutdatedException)
         {

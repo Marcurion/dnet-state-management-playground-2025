@@ -5,21 +5,21 @@ using MediatR;
 
 namespace Application.StateManagement.AppState1.Pipeline;
 
-public class AppState1PipelineBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, IAppState1>
-    where TRequest : AppState1Request
+public class AppState1PipelineBehaviour<TRequest, T> : IPipelineBehavior<TRequest, IAppState1<T>>
+    where TRequest : AppState1Request<T>
 {
     private static readonly SemaphoreSlim _mutex = new(1, 1);
-    private readonly IAppState1Wrapper _wrapperSingleton;
+    private readonly IAppState1Wrapper<T> _wrapperSingleton;
 
-    public AppState1PipelineBehaviour(IAppState1Wrapper wrapperSingleton)
+    public AppState1PipelineBehaviour(IAppState1Wrapper<T> wrapperSingleton)
     {
         _wrapperSingleton = wrapperSingleton;
     }
 
 
-    public async Task<IAppState1> Handle(TRequest request, RequestHandlerDelegate<IAppState1> next,
-        CancellationToken cancellationToken)
+    public async Task<IAppState1<T>> Handle(TRequest request, RequestHandlerDelegate<IAppState1<T>> next, CancellationToken cancellationToken)
     {
+        
         // if (_mutex.CurrentCount == 0) // not thread-safe, for debugging only
         //     throw new MutexBusyException(); 
 

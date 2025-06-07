@@ -3,7 +3,7 @@ using Domain.States;
 
 namespace Application.StateManagement.AppState1.Specific;
 
-public class SetAppState1Request : AppState1ModificationRequest
+public class SetAppState1Request<T> : AppState1ModificationRequest<T>
 {
-    public IAppState1 NewState { get; set; }
+    public IAppState1<T> NewState { get; set; }
 }

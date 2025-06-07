@@ -5,22 +5,24 @@ using MediatR;
 
 namespace Application.StateManagement.AppState1.Pipeline;
 
-public class AppState1ModificationPipelineBehaviour<TRequest, TResponse>
-    : IPipelineBehavior<TRequest, IAppState1>
-    where TRequest : AppState1ModificationRequest
+public class AppState1ModificationPipelineBehaviour<TRequest, T>
+    : IPipelineBehavior<TRequest, IAppState1<T>>
+    where TRequest : AppState1ModificationRequest<T>
 // where TInner : IAppState
 {
-    private readonly IAppState1Wrapper _stateWrapper;
+    private readonly IAppState1Wrapper<T> _stateWrapper;
 
-    public AppState1ModificationPipelineBehaviour(IAppState1Wrapper stateWrapper)
+    public AppState1ModificationPipelineBehaviour(IAppState1Wrapper<T> stateWrapper)
     {
         _stateWrapper = stateWrapper;
     }
 
 
-    public async Task<IAppState1> Handle(TRequest request, RequestHandlerDelegate<IAppState1> next,
-        CancellationToken cancellationToken)
+
+
+    public async Task<IAppState1<T>> Handle(TRequest request, RequestHandlerDelegate<IAppState1<T>> next, CancellationToken cancellationToken)
     {
+        
         if (request == null)
             throw new ArgumentException("Request must not be null");
 
@@ -45,5 +47,6 @@ public class AppState1ModificationPipelineBehaviour<TRequest, TResponse>
         }
 
         return operationResult;
+
     }
 }
