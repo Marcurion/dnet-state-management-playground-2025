@@ -1,8 +1,6 @@
 namespace Domain.States;
 
-public interface IAppState2Wrapper
+public interface IAppState2Wrapper : IAppStateWrapper<AppState2>
 {
-    public IAppState2 CurrentState { get; set; }
-    
-    public Action<IAppState2> StateChanged { get; set; }
+    // Inherits from generic interface, no additional properties needed
 }

@@ -1,6 +1,9 @@
+using Application.StateManagement.Generic;
+using Domain.States;
+
 namespace Application.StateManagement.AppState1.Generic;
 
-public class AppState1ModificationRequest : AppState1Request
+public abstract class AppState1ModificationRequest : AppStateModificationRequest<Domain.States.AppState1>
 {
-    public int LastStateHash;
+    // Inherits from generic base class
 }

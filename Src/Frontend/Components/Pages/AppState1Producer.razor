@@ -25,6 +25,8 @@ private bool _shouldRender = true;
 
     public async Task AddNumber(uint attempts)
     {
+        
+        Console.WriteLine("Trigger1");
         if (attempts > 100)
             throw new TooManyReattemptsException();
         

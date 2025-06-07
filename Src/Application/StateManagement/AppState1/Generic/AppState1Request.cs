@@ -1,9 +1,9 @@
+using Application.StateManagement.Generic;
 using Domain.States;
-using MediatR;
 
 namespace Application.StateManagement.AppState1.Generic;
 
-public class AppState1Request : IRequest<IAppState1>
+public abstract class AppState1Request : AppStateRequest<Domain.States.AppState1>
 {
-    internal IAppState1 InternalLatestState { get; set; }
+    // Inherits from generic base class
 }

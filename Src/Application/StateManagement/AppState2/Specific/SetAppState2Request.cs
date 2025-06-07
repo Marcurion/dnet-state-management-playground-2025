@@ -5,5 +5,5 @@ namespace Application.StateManagement.AppState2.Specific;
 
 public class SetAppState2Request : AppState2ModificationRequest
 {
-    public IAppState2 NewState { get; set; }
+    public Domain.States.AppState2 NewState { get; set; } = null!;
 }
