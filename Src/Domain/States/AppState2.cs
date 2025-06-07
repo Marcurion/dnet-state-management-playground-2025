@@ -1,6 +1,6 @@
 namespace Domain.States;
 
-public class AppState2 : IAppState2
+public class AppState2 : IAppState1<List<int>>
 {
-    public List<string> Items { get; set; } = ["Green", "Red", "Blue"];
+    public List<int> Items { get; set; } = [1, 2, 3];
 }

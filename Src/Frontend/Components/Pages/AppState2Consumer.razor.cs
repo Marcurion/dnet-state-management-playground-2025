@@ -7,7 +7,7 @@ public partial class AppState2Consumer : ComponentBase, IDisposable
 {
     
     [Inject]
-    public IAppState2Wrapper _appState2Wrapper { get; set; } = default!;
+    public  IAppState1Wrapper<List<int>> _appState2Wrapper { get; set; } = default!;
     
     protected string ListAnimationClass = "";
     protected string ComponentAnimationClass = "";
@@ -17,7 +17,7 @@ public partial class AppState2Consumer : ComponentBase, IDisposable
     private bool _shouldRender = true;
     
     
-    public void ManualRender(IAppState2 newState)
+    public void ManualRender(IAppState1<List<int>> newState)
     {
         Console.WriteLine("MANUAL RENDER TRIGGERED (APPSTATE2CONSUMER)");
         

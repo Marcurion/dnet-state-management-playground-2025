@@ -1,3 +1,4 @@
+@using Application.StateManagement.AppState1.Specific
 @using Application.StateManagement.AppState2.Specific
 @using Application.StateManagement.Common
 @using Domain.States
@@ -7,8 +8,8 @@
 <h3>Update State2</h3>
 <div class="add-number-section">
     <div class="form-group">
-        <label for="newNumber">Add Color:</label>
-        <input @bind="input" id="newItem" class="form-control" placeholder="Enter text"/>
+        <label for="newNumber">Add Number:</label>
+        <input @bind="input" type="number" id="newItem" class="form-control" placeholder="Enter a number"/>
     </div>
     <button @onclick="AddNumber" class="action-button mt-2">Add to State</button>
 </div>
@@ -19,7 +20,7 @@ protected override bool ShouldRender() => _shouldRender;
 private bool _shouldRender = true;
     [Inject] private IMediator _mediator { get; init; }
 
-    private string input = "Yellow";
+    private string input = "42";
 
     public async Task AddNumber() => AddNumber(0);
 
@@ -28,11 +29,11 @@ private bool _shouldRender = true;
         if (attempts > 100)
             throw new TooManyReattemptsException();
         
-        var previousState2 = await _mediator.Send(new GetAppState2Request());
-        var newState2 = new AppState2() {  Items = previousState2.Items.Concat([input]).ToList() };
+        var previousState2 = await _mediator.Send(new GetAppState1Request<List<int>>());
+        var newState2 = new AppState2() {  Items = previousState2.Items.Concat([int.Parse(input)]).ToList() };
         try
         {
-            await _mediator.Send(new SetAppState2Request() { NewState = newState2, LastStateHash = previousState2.GetHashCode() });
+            await _mediator.Send(new SetAppState1Request<List<int>>() { NewState = newState2, LastStateHash = previousState2.GetHashCode() });
         }
         catch (HashOutdatedException)
         {

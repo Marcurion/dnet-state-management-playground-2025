@@ -7,7 +7,7 @@
 <h3>Update State1</h3>
 <div class="add-number-section">
     <div class="form-group">
-        <label for="newNumber">Add Number:</label>
+        <label for="newNumber">Add Color:</label>
         <input @bind="input" id="newItem" class="form-control" placeholder="Enter text"/>
     </div>
     <button @onclick="AddNumber" class="action-button mt-2">Add to State</button>
@@ -19,7 +19,7 @@ protected override bool ShouldRender() => _shouldRender;
 private bool _shouldRender = true;
     [Inject] private IMediator _mediator { get; init; }
 
-    private string input = "42";
+    private string input = "Yellow";
 
     public async Task AddNumber() => AddNumber(0);
 
