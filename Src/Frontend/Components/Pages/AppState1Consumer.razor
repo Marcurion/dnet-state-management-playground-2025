@@ -4,7 +4,7 @@
     <h3>App State1</h3>
     
     <ul class="number-list">
-        @foreach (var item in AppStateWrapper.CurrentState.Items)
+        @foreach (var item in AppStateWrapper.CurrentState.Value)
         {
             <li class="@ListAnimationClass">@item</li>
         }

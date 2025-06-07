@@ -1,6 +1,6 @@
 namespace Domain.States;
 
-public interface IAppState<T>
+public class AppState<T> : IAppState<T>
 {
     public T Value { get; set; }
 }
