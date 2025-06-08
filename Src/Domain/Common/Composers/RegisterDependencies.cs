@@ -11,8 +11,6 @@ public static class RegisterDependencies
     {
         var stringState = new AppState<List<string>>(["Red", "Green", "Blue"]);
         var intState = new AppState<List<int>>([1, 2, 3]);
-        services.AddSingleton<IAppStateWrapper<List<string>>>(new AppStateWrapper<List<string>>(stringState));
-        services.AddSingleton<IAppStateWrapper<List<int>>>(new AppStateWrapper<List<int>>(intState));
         services.AddSingleton<IAppState<List<string>>>(stringState);
         services.AddSingleton<IAppState<List<int>>>(intState);
         return services;

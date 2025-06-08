@@ -1,4 +1,5 @@
 using Application.Common.Composers;
+using Domain.Common.Composers;
 using Infrastructure.Common.Composer;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,6 +31,7 @@ public class RegisterDepenciesTests
             var services = new ServiceCollection();
 
             // Act
+            services.RegisterDomain();
             var result = services.RegisterApplication();
 
             // Assert

@@ -10,9 +10,9 @@ public class AppStateModificationPipelineBehaviour<TRequest, T>
     where TRequest : AppStateModificationRequest<T>
 // where TInner : IAppState
 {
-    private readonly IAppStateWrapper<T> _stateWrapper;
+    private readonly AppStateWrapper<T> _stateWrapper;
 
-    public AppStateModificationPipelineBehaviour(IAppStateWrapper<T> stateWrapper)
+    public AppStateModificationPipelineBehaviour(AppStateWrapper<T> stateWrapper)
     {
         _stateWrapper = stateWrapper;
     }

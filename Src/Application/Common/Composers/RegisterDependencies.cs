@@ -1,4 +1,5 @@
 using Application.Common.PipelineBehaviors;
+using Application.StateManagement.Common;
 using Application.StateManagement.Generic;
 using Application.StateManagement.Pipeline;
 using Application.StateManagement.Specific;
@@ -13,6 +14,14 @@ public static class RegisterDependencies
     public static IServiceCollection RegisterApplication(this IServiceCollection services)
     {
         services.AddSingleton<MyManager>();
+        var stringWrapper =new AppStateWrapper<List<string>>(
+            services.BuildServiceProvider().GetRequiredService<IAppState<List<string>>>() as AppState<List<string>>);
+        var intWrapper =new AppStateWrapper<List<int>>(
+            services.BuildServiceProvider().GetRequiredService<IAppState<List<int>>>() as AppState<List<int>>);
+        services.AddSingleton<IAppStateWrapper<List<string>>>(stringWrapper);
+        services.AddSingleton<AppStateWrapper<List<string>>>(stringWrapper);
+        services.AddSingleton<IAppStateWrapper<List<int>>>(intWrapper);
+        services.AddSingleton<AppStateWrapper<List<int>>>(intWrapper);
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceMonitoringBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
