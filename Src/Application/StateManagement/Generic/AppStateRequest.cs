@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.StateManagement.Generic;
 
-public class AppStateRequest<T> : IRequest<IAppState<T>>
+public class AppStateRequest<T> : IRequest<AppState<T>>
 {
-    internal IAppState<T> InternalLatestState { get; set; }
+    internal AppState<T> InternalLatestState { get; set; }
 }

@@ -3,10 +3,10 @@ using MediatR;
 
 namespace Application.StateManagement.Specific;
 
-public class SetAppStateRequestHandler<T> : IRequestHandler<SetAppStateRequest<T>, IAppState<T>>
+public class SetAppStateRequestHandler<T> : IRequestHandler<SetAppStateRequest<T>, AppState<T>>
 {
 
-    public async Task<IAppState<T>> Handle(SetAppStateRequest<T> request, CancellationToken cancellationToken)
+    public async Task<AppState<T>> Handle(SetAppStateRequest<T> request, CancellationToken cancellationToken)
     {
         
         return request.NewState;

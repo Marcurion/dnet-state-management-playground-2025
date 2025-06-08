@@ -1,6 +1,3 @@
 namespace Domain.States;
 
-public class AppState<T> : IAppState<T>
-{
-    public T Value { get; set; }
-}
+public record AppState<T>( T Value) : IAppState<T>;

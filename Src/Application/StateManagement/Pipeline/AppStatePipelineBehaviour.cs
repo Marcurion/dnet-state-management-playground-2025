@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.StateManagement.Pipeline;
 
-public class AppStatePipelineBehaviour<TRequest, T> : IPipelineBehavior<TRequest, IAppState<T>>
+public class AppStatePipelineBehaviour<TRequest, T> : IPipelineBehavior<TRequest, AppState<T>>
     where TRequest : AppStateRequest<T>
 {
     private static readonly SemaphoreSlim _mutex = new(1, 1);
@@ -17,7 +17,7 @@ public class AppStatePipelineBehaviour<TRequest, T> : IPipelineBehavior<TRequest
     }
 
 
-    public async Task<IAppState<T>> Handle(TRequest request, RequestHandlerDelegate<IAppState<T>> next, CancellationToken cancellationToken)
+    public async Task<AppState<T>> Handle(TRequest request, RequestHandlerDelegate<AppState<T>> next, CancellationToken cancellationToken)
     {
         // if (_mutex.CurrentCount == 0) // not thread-safe, for debugging only
         //     throw new MutexBusyException(); 

@@ -29,7 +29,7 @@ private bool _shouldRender = true;
             throw new TooManyReattemptsException();
         
         var previousState2 = await _mediator.Send(new GetAppStateRequest<List<int>>());
-        var newState2 = new AppState<List<int>>() {  Value = previousState2.Value.Concat([int.Parse(input)]).ToList() };
+        var newState2 = previousState2 with {  Value = previousState2.Value.Concat([int.Parse(input)]).ToList() };
         try
         {
             await _mediator.Send(new SetAppStateRequest<List<int>>() { NewState = newState2, LastStateHash = previousState2.GetHashCode() });

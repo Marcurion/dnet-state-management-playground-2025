@@ -52,7 +52,7 @@ public class AppState1Tests : IClassFixture<MyCustomWebFactory>
         singleton.StateChanged += ChangeTrigger;
 
         var response1 = await _mediator.Send(new SetAppStateRequest<List<string>>()
-            { NewState = new AppState<List<string>>(), LastStateHash = singleton.CurrentState.GetHashCode() });
+            { NewState = new AppState<List<string>>([]), LastStateHash = singleton.CurrentState.GetHashCode() });
 
         Assert.True(triggered);
     }
@@ -65,7 +65,7 @@ public class AppState1Tests : IClassFixture<MyCustomWebFactory>
         var initialHash = singleton.CurrentState.GetHashCode();
         
         var response1 = await _mediator.Send(new SetAppStateRequest<List<string>>()
-            { NewState = new AppState<List<string>>(), LastStateHash = singleton.CurrentState.GetHashCode() });
+            { NewState = new AppState<List<string>>([]), LastStateHash = singleton.CurrentState.GetHashCode() });
         
         Assert.NotEqual(initialHash, singleton.CurrentState.GetHashCode());
         Assert.Equal(response1.GetHashCode(), singleton.CurrentState.GetHashCode());
@@ -86,11 +86,11 @@ public class AppState1Tests : IClassFixture<MyCustomWebFactory>
             //await Task.Delay(TimeSpan.FromMilliseconds(Random.Shared.NextDouble() * 20));
 
             await _mediator.Send(new SetAppStateRequest<List<string>>()
-                { NewState = new AppState<List<string>>(), LastStateHash = initialHash });
+                { NewState = new AppState<List<string>>([]), LastStateHash = initialHash });
         });
 
         var t2 = Task.Run(async () => await _mediator.Send(new SetAppStateRequest<List<string>>()
-            { NewState = new AppState<List<string>>(), LastStateHash = initialHash }));
+            { NewState = new AppState<List<string>>([]), LastStateHash = initialHash }));
 
         try
         {
@@ -118,11 +118,11 @@ public class AppState1Tests : IClassFixture<MyCustomWebFactory>
         var exceptions = new List<Exception>();
 
         var t1 = Task.Run(async () => await _mediator.Send(new SetAppStateRequest<List<string>>()
-            { NewState = new AppState<List<string>>(), LastStateHash = initialHash }));
+            { NewState = new AppState<List<string>>([]), LastStateHash = initialHash }));
 
 
         var t2 = Task.Run(async () => await _mediator.Send(new SetAppStateRequest<List<string>>()
-            { NewState = new AppState<List<string>>(), LastStateHash = initialHash }));
+            { NewState = new AppState<List<string>>([]), LastStateHash = initialHash }));
 
         try
         {
@@ -133,7 +133,7 @@ public class AppState1Tests : IClassFixture<MyCustomWebFactory>
             try
             {
                 var t3 = Task.Run(async () => await _mediator.Send(new SetAppStateRequest<List<string>>()
-                    { NewState = new AppState<List<string>>(), LastStateHash = singleton.CurrentState.GetHashCode() }));
+                    { NewState = new AppState<List<string>>([]), LastStateHash = singleton.CurrentState.GetHashCode() }));
                 await t3;
             }
             catch (Exception eInner)
@@ -155,7 +155,7 @@ public class AppState1Tests : IClassFixture<MyCustomWebFactory>
             try
             {
                 var t3 = Task.Run(async () => await _mediator.Send(new SetAppStateRequest<List<string>>()
-                    { NewState = new AppState<List<string>>(), LastStateHash = singleton.CurrentState.GetHashCode() }));
+                    { NewState = new AppState<List<string>>([]), LastStateHash = singleton.CurrentState.GetHashCode() }));
                 await t3;
             }
             catch (Exception eInner)

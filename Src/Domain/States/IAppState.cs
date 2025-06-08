@@ -2,5 +2,5 @@ namespace Domain.States;
 
 public interface IAppState<T>
 {
-    public T Value { get; set; }
+    public T Value { get; init; }
 }

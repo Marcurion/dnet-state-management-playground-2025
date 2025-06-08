@@ -5,5 +5,5 @@ namespace Application.StateManagement.Specific;
 
 public class SetAppStateRequest<T> : AppStateModificationRequest<T>
 {
-    public IAppState<T> NewState { get; set; }
+    public AppState<T> NewState { get; set; }
 }

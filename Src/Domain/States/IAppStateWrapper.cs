@@ -2,7 +2,7 @@ namespace Domain.States;
 
 public interface IAppStateWrapper<T>
 {
-    public IAppState<T> CurrentState { get; set; }
+    public AppState<T> CurrentState { get; set; }
     
-    public Action<IAppState<T>> StateChanged { get; set; }
+    public Action<AppState<T>> StateChanged { get; set; }
 }

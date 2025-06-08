@@ -6,7 +6,7 @@ using MediatR;
 namespace Application.StateManagement.Pipeline;
 
 public class AppStateModificationPipelineBehaviour<TRequest, T>
-    : IPipelineBehavior<TRequest, IAppState<T>>
+    : IPipelineBehavior<TRequest, AppState<T>>
     where TRequest : AppStateModificationRequest<T>
 // where TInner : IAppState
 {
@@ -20,7 +20,7 @@ public class AppStateModificationPipelineBehaviour<TRequest, T>
 
 
 
-    public async Task<IAppState<T>> Handle(TRequest request, RequestHandlerDelegate<IAppState<T>> next, CancellationToken cancellationToken)
+    public async Task<AppState<T>> Handle(TRequest request, RequestHandlerDelegate<AppState<T>> next, CancellationToken cancellationToken)
     {
         
         if (request == null)
