@@ -33,3 +33,11 @@ Search for the // Notable: comments.
    - **AppState1Consumer.razor**
    - **AppStateDemo.razor**
  - If you want to learn more about the thread-safety aspects you can take a look at the tests in **Tests/Tests.Integration/AppState1Tests.cs**
+
+# Synergies and future potential
+The following topics could create synergies with this specific approach:
+- Domain Validation: Using Validation in the MediatR pipelines for Set State operations could result in a better validated app state and domian model
+- User Session Isolation & Concurrency: This approach is already developed with thread safety in mind, it could easily be extended to introduce a per user session state either in the PipelineBehaviours or in the AppState representation
+- Result Pattern: Introducing the result pattern e.g. ErrorOr for the Set and Get State operations would make error/exception handling more explicit, especially as more error potentials are introduced e.g. Permissions 
+- Event Handling: If we consider an event driven system MediatR is a good tool for that
+- Authorization: Sitting between the presentation layer and the business side, introducing permissions checks for operations via PipelineBehaviours seems feasible
