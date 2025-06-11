@@ -21,7 +21,12 @@ private bool _shouldRender = true;
 
     private string input = "42";
 
-    public async Task AddNumber() => AddNumber(0);
+    public async Task AddNumber()
+    {
+        await Task.Delay(100);
+        AddNumber(0);
+    }
+
 
     public async Task AddNumber(uint attempts)
     {
