@@ -37,7 +37,10 @@ Search for the // Notable: comments.
 # Synergies and future potential
 The following topics could create synergies with this specific approach:
 - Domain Validation: Using Validation in the MediatR pipelines for Set State operations could result in a better validated app state and domian model
-- User Session Isolation & Concurrency: This approach is already developed with thread safety in mind, it could easily be extended to introduce a per user session state either in the PipelineBehaviours or in the AppState representation
+- User Session Isolation & Concurrency: This approach is already developed with thread safety in mind, it could easily be extended to introduce a per-user session state either in the PipelineBehaviours or in the AppState representation
 - Result Pattern: Introducing the result pattern e.g. ErrorOr for the Set and Get State operations would make error/exception handling more explicit, especially as more error potentials are introduced e.g. Permissions 
 - Event Handling: If we consider an event driven system MediatR is a good tool for that
 - Authorization: Sitting between the presentation layer and the business side, introducing permissions checks for operations via PipelineBehaviours seems feasible
+
+# Verdict
+While the original question whether MediatR Pipelines can be used to inject a centralized state into operations can be answered with yes. I am not so sure about the usage of Generics as they require tedious verbose registration of PipelineBehaviours which defeats the purpose of having many PipelineBehaviours with a clear scope. Maybe reverting back to usage of small concrete classes introduces more safety to process with similar, albeit distributed, boilerplate effort for more states. Or a branch for MediatR improves the registration of Generics, but that comes with its own risks for long term support.
